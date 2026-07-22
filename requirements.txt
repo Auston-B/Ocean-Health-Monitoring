@@ -1,0 +1,12 @@
+numpy
+pandas
+requests
+matplotlib
+shap
+scikit-learn
+scipy
+seaborn
+plotly
+ipywidgets
+IPython
+hdbscan
