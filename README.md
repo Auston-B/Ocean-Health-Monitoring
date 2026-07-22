@@ -1,178 +1,6 @@
-# SIADS 696 Milestone 2: Ocean Health Monitoring Using NOAA WOD
+# Ocean Health Monitoring — NOAA World Ocean Database
 
-A comprehensive machine learning project analyzing ocean health using the NOAA World Ocean Database (WOD). This project applies supervised and unsupervised learning techniques to explore oceanographic patterns, predict dissolved oxygen levels, and uncover hidden structures in ocean data.
-
-## Project Overview
-
-This project utilizes the NOAA World Ocean Database to:
-- Apply supervised learning methods to predict ocean oxygen levels and understand key environmental drivers
-- Explore oceanographic patterns and relationships through dimensionality reduction and clustering
-- Analyze the complex interactions between temperature, salinity, depth, and other ocean variables
-- Provide insights into ocean health indicators and environmental patterns across different regions and time periods
-
-## Team Members
-
-- Natasha Soldin
-- Auston Balwinski
-- Seungdo Woo
-
-## My Contributions
-
-This was a three-person project. My primary responsibility was the **unsupervised learning task**, with shared work on data preparation and the report. Specifically, I owned:
-
-- **Unsupervised learning** ([`Unsupervised_Learning.ipynb`](Notebooks/Unsupervised_Learning.ipynb)) — the clustering pipeline end to end: feature selection and scaling, four clustering algorithms (MiniBatch K-Means, Agglomerative, DBSCAN, HDBSCAN) with grid-searched hyperparameters, silhouette-based model selection, PCA/t-SNE visual comparison, effect-size cluster profiling, and the geographic and 3-D spatial visualizations.
-- **Data ingestion & formatting** — parsing the raw NOAA WOD export into a standard, analysis-ready table (shared data-prep work in [`Data_Preparation.ipynb`](Notebooks/Data_Preparation.ipynb)).
-- **Background research** into the oceanographic context and related work.
-- **Report** — authored the introduction, related-works, and unsupervised-learning sections plus the unsupervised discussion, and did final formatting and editing.
-
-The supervised regression/ensemble models (Natasha Soldin) and the neural-network models (Seungdo Woo) were led by my teammates.
-
-## Repository Structure
-
-```
-Ocean-Health-Monitoring/
-├── Notebooks/
-│   ├── Data_Preparation.ipynb
-│   ├── Supervised_Learning_Task_Part1.ipynb
-│   ├── Supervised_Learning_Task_Part2.ipynb
-│   └── Unsupervised_Learning.ipynb
-├── Data/                          # Data extracted from NOAA WOD & processed data produced by Data_Preparation.ipynb (not tracked in git)
-├── Results/
-│   └── Ocean_Health_Monitoring_Report.pdf   # Final report with all results compiled
-├── requirements.txt
-├── .gitignore
-├── LICENSE
-└── README.md
-```
-
-## Notebooks
-
-### 1. Data Preparation (`Data_Preparation.ipynb`)
-- **Data Ingestion**: Loading NOAA WOD Ocean Station Data (OSD)
-- **Data Cleaning**: Handling inconsistencies and errors
-- **Missing Value Analysis**: Extensive treatment of missing data
-- **Exploratory Data Analysis (EDA)**: Statistical summaries and distributions
-- **Correlation Analysis**: Understanding relationships between oceanographic variables
-
-### 2. Supervised Learning Part 1 (`Supervised_Learning_Task_Part1.ipynb`)
-- **Objective**: Predict dissolved oxygen levels in ocean waters
-- **Regression Models**: Linear Regression, Ridge Regression
-- **Ensemble Methods**: Random Forest, Gradient Boosting
-- **Model Evaluation**: MSE, MAE, R² metrics
-- **Feature Importance Analysis**: Identifying key predictors of oxygen levels
-- **Ablation Studies**: Testing impact of feature removal
-- **Hyperparameter Sensitivity**: GridSearchCV optimization
-- **Learning Curves**: Analyzing model performance vs. training size
-- **Failure Testing**: Understanding model limitations and edge cases
-
-### 3. Supervised Learning Part 2 (`Supervised_Learning_Task_Part2.ipynb`)
-- **Objective**: Apply deep learning approaches to oxygen level prediction
-- **Deep Learning Architectures**: Neural network implementations for regression tasks
-- **Model Training**: Optimization techniques and convergence analysis
-- **Performance Comparison**: Deep learning vs. traditional ML methods
-- **Advanced Techniques**: Exploration of complex model architectures
-
-### 4. Unsupervised Learning (`Unsupervised_Learning.ipynb`)
-- **Objective**: Discover natural patterns and structures in ocean data without predefined labels
-- **Clustering Analysis**: Compare four algorithms to identify ocean regimes — MiniBatch K-Means, Agglomerative (Ward linkage), HDBSCAN, and DBSCAN — with model selection driven by the inertia elbow and silhouette scores
-- **Dimensionality Reduction**: PCA and t-SNE projections used to visually compare the resulting cluster assignments in 2-D
-- **Cluster Profiling**: Feature effect-size heatmap (per-cluster z-scores vs. the global mean) to characterize what distinguishes each cluster
-- **Spatial Exploration**: Geographic mapping of clusters by depth bin and a 3-D latitude × longitude × depth scatter to interpret clusters as ocean regimes
-
-## Data Source
-
-This project uses data from the **NOAA World Ocean Database (WOD)**, specifically the Ocean Station Data (OSD) dataset.
-
-### Data Citation
-
-NOAA World Ocean Database (WOD) was accessed September 2025 from https://www.ncei.noaa.gov/products/world-ocean-database
-
-**Reference:**
-> Mishonov A.V., T. P. Boyer, O. K. Baranova, C. N. Bouchard, S. Cross, H. E. Garcia, R. A. Locarnini, C. R. Paver, J. R. Reagan, Z. Wang, D. Seidov, A. I. Grodsky, J. G. Beauchamp, (2024): World Ocean Database 2023. NOAA National Centers for Environmental Information. Dataset. https://doi.org/10.25921/wbve-a685
-
-### How to Obtain the Data
-
-The World Ocean Database is available for public use without restriction. Follow these steps to download the data:
-
-1. **Navigate to WODselect**: Visit [https://www.ncei.noaa.gov/access/world-ocean-database-select/dbsearch.html](https://www.ncei.noaa.gov/access/world-ocean-database-select/dbsearch.html)
-
-2. **Select Criteria**:
-   - **Observation Dates**: Choose your date range (e.g., 2000-2018)
-   - **Dataset**: Select **Ocean Station Data (OSD)** only
-   - **Measured Variables**: 
-     - Select variables needed (Temperature, Salinity, Oxygen, etc.)
-     - The first checkbox includes the variable if available
-     - Leave unselected to include all OSD variables
-   - **Optional Filters**: Depth range, country, geographic coordinates, etc.
-
-3. **Generate Query**:
-   - Click "Get an Inventory" to preview your selection
-   - Review the dataset distribution map and cast count
-
-4. **Download Data**:
-   - Click "Download Data"
-   - Select **CSV format (standard output)**
-   - Choose **Observed level data** (depth measurements in meters)
-   - Include **WOD flags** for quality control information
-   - Select **No corrections**
-   - Provide your email address
-   - You'll receive download links via email when the query is complete
-
-5. **Save Data**: 
-   - Download the CSV file(s)
-   - Place them in the `Data/` directory
-   - The files are not tracked in git due to size
-
-**Note**: Query processing time varies based on the amount and complexity of data requested.
-
-## Installation & Setup
-
-### Prerequisites
-
-- Python 3.8+ (check your version with `python --version`)
-
-### Setup Instructions
-
-1. **Clone the repository**:
-```bash
-git clone https://github.com/Auston-B/Ocean-Health-Monitoring.git
-cd Ocean-Health-Monitoring
-```
-
-2. **Create a virtual environment** (recommended):
-```bash
-python -m venv venv
-
-# On Windows:
-venv\Scripts\activate
-
-# On macOS/Linux:
-source venv/bin/activate
-```
-
-3. **Install dependencies**:
-```bash
-pip install -r requirements.txt
-```
-
-4. **Download the data** following the instructions in the [Data Source](#data-source) section above.
-
-5. **Launch Jupyter Notebook**:
-```bash
-jupyter notebook
-```
-
-6. **Run notebooks in order**: Start with `Data_Preparation.ipynb` and proceed sequentially.
-
-## Dependencies
-
-Key libraries used in this project:
-- **Data Processing**: pandas, numpy
-- **Visualization**: matplotlib, seaborn, plotly
-- **Machine Learning**: scikit-learn
-- **Interactive Widgets**: ipywidgets
-
-See `requirements.txt` for the complete list of libraries.
+Machine learning on the NOAA World Ocean Database (WOD) to **predict dissolved oxygen** — a key indicator of water quality — and to **uncover natural structure** in global ocean measurements. Built for SIADS 696 (Milestone 2) by a three-person team.
 
 ## Key Findings
 
@@ -213,28 +41,44 @@ Four clustering algorithms were compared on the geographic, chemical, and physic
 
 Full methodology, figures, and discussion are in [`Results/Ocean_Health_Monitoring_Report.pdf`](Results/Ocean_Health_Monitoring_Report.pdf).
 
-## Methodology
+## My Contributions
 
-Our analysis follows a systematic approach:
-1. **Data Preprocessing**: Handling missing values, outlier detection, quality control flag analysis, and feature engineering
-2. **Exploratory Analysis**: Understanding distributions, correlations, and relationships in ocean variables
-3. **Supervised Learning**: Applying regression models to predict oxygen levels and identify key environmental drivers
-4. **Deep Learning**: Exploring neural network architectures for complex pattern recognition
-5. **Unsupervised Learning**: Discovering natural groupings and reducing dimensionality to understand ocean regimes
+My primary responsibility was the **unsupervised learning task**, with shared work on data preparation and the report. Specifically, I owned:
 
-## License
+- **Unsupervised learning** ([`Unsupervised_Learning.ipynb`](Notebooks/Unsupervised_Learning.ipynb)) — the clustering pipeline end to end: feature selection and scaling, four clustering algorithms (MiniBatch K-Means, Agglomerative, DBSCAN, HDBSCAN) with grid-searched hyperparameters, silhouette-based model selection, PCA/t-SNE visual comparison, effect-size cluster profiling, and the geographic and 3-D spatial visualizations.
+- **Data ingestion & formatting** — parsing the raw NOAA WOD export into a standard, analysis-ready table (shared data-prep work in [`Data_Preparation.ipynb`](Notebooks/Data_Preparation.ipynb)).
+- **Background research** into the oceanographic context and related work.
+- **Report** — authored the introduction, related-works, and unsupervised-learning sections plus the unsupervised discussion, and did final formatting and editing.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+The supervised regression/ensemble models (Natasha Soldin) and the neural-network models (Seungdo Woo) were led by my teammates.
 
-## Acknowledgments
+## Notebooks
 
-- NOAA National Centers for Environmental Information for providing the World Ocean Database
-- University of Michigan School of Information
-- SIADS 696 course instructors and staff
+Run in order — each contains inline analysis and rendered outputs.
 
-## Contact
+1. **[Data_Preparation.ipynb](Notebooks/Data_Preparation.ipynb)** — ingest NOAA WOD Ocean Station Data, clean, handle missing values, and run EDA and correlation analysis.
+2. **[Supervised_Learning_Task_Part1.ipynb](Notebooks/Supervised_Learning_Task_Part1.ipynb)** — regression and ensembles (Linear, Ridge, Random Forest, Gradient Boosting) for oxygen prediction, with feature importance, ablation, hyperparameter tuning, and failure testing.
+3. **[Supervised_Learning_Task_Part2.ipynb](Notebooks/Supervised_Learning_Task_Part2.ipynb)** — a neural-network (MLP) approach and comparison against the classical models.
+4. **[Unsupervised_Learning.ipynb](Notebooks/Unsupervised_Learning.ipynb)** — clustering, PCA/t-SNE visualization, cluster profiling, and spatial exploration.
 
-For questions about this project, please reach out to:
-- nsoldin@umich.edu
-- austonb@umich.edu
-- seungdo@umich.edu
+## Data
+
+NOAA **World Ocean Database (WOD)**, Ocean Station Data (OSD) subset, 2000–2018 (accessed September 2025). The data is public and **not tracked in git** due to size — download it into a `Data/` directory via [WODselect](https://www.ncei.noaa.gov/access/world-ocean-database-select/dbsearch.html): select the **Ocean Station Data (OSD)** dataset and your date range, then download as **CSV (observed-level data, with WOD flags, no corrections)**.
+
+> Mishonov A.V., et al. (2024): *World Ocean Database 2023.* NOAA National Centers for Environmental Information. https://doi.org/10.25921/wbve-a685
+
+## Setup
+
+```bash
+git clone https://github.com/Auston-B/Ocean-Health-Monitoring.git
+cd Ocean-Health-Monitoring
+python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+jupyter notebook
+```
+
+Requires Python 3.8+. Download the data (see above), then run the notebooks in order starting with `Data_Preparation.ipynb`.
+
+## Team & License
+
+Natasha Soldin, Auston Balwinski, Seungdo Woo — SIADS 696, University of Michigan School of Information. Data courtesy of NOAA National Centers for Environmental Information. Licensed under the [MIT License](LICENSE).
